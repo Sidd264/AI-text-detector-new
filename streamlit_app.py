@@ -21,6 +21,14 @@ os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 warnings.filterwarnings('ignore')
 
+import nltk
+for res in ['punkt', 'punkt_tab']:
+    try:
+        nltk.data.find(f'tokenizers/{res}')
+    except LookupError:
+        nltk.download(res)
+
+
 class RobustAIDetector:
     """AI Detector with robust fallback methods - fixes the 83.4% same prediction bug"""
     
@@ -715,3 +723,4 @@ def train_fixed_model(detector):
 
 if __name__ == "__main__":
     create_fixed_streamlit_app()
+
